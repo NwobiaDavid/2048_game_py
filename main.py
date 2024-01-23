@@ -28,6 +28,9 @@ class Game2048:
             for j in range(self.grid_size):
                 self.cells[i][j].grid(row=i, column=j, padx=5, pady=5)
 
+        self.restart_button = tk.Button(self.root, text="Restart", command=self.reset_game)
+        self.restart_button.pack(pady=10)
+
         self.root.bind("<Left>", lambda event: self.move("left"))
         self.root.bind("<Right>", lambda event: self.move("right"))
         self.root.bind("<Up>", lambda event: self.move("up"))
@@ -37,6 +40,15 @@ class Game2048:
         self.add_random_tile()
         self.add_random_tile()
         self.update_gui()
+        self.reset_game()
+
+    def reset_game(self):
+        self.grid = [[0] * self.grid_size for _ in range(self.grid_size)]
+        self.score = 0
+        self.add_random_tile()
+        self.add_random_tile()
+        self.update_gui()
+
 
     def add_random_tile(self):
         empty_cells = [(i, j) for i in range(self.grid_size) for j in range(self.grid_size) if self.grid[i][j] == 0]
@@ -118,8 +130,8 @@ class Game2048:
                 else:
                     new_line[index] = line[i]
                     index += 1
-
         return new_line
+
 
     def run(self):
         self.root.mainloop()
