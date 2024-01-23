@@ -28,7 +28,15 @@ class Game2048:
             for j in range(self.grid_size):
                 self.cells[i][j].grid(row=i, column=j, padx=5, pady=5)
 
-        self.restart_button = tk.Button(self.root, text="Restart", command=self.reset_game)
+        restart_button_style = {'font': ('Helvetica', 12),
+                                'background': '#000',
+                                'foreground': 'white',
+                                'borderwidth': 2,
+                                'relief': 'raised',
+                                'pady': 5,
+                                'command': self.reset_game}
+
+        self.restart_button = tk.Button(self.root, text="Restart", **restart_button_style)
         self.restart_button.pack(pady=10)
 
         self.root.bind("<Left>", lambda event: self.move("left"))
